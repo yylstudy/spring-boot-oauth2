@@ -1,0 +1,17 @@
+server:
+  port: 8086
+mybatis:
+  mapper-locations: /mapper/**.xml
+
+druid:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://127.0.0.1:3306/oauth2
+  username: root
+  password: root
+#这个很重要，配置了oauth2的过滤器的熟悉怒
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+#开启oauth2和spring security的日志
+logging.level.org.springframework.security: DEBUG

@@ -1,0 +1,23 @@
+server:
+  port: 8088
+  context-path: /sso-client2
+#  session:
+#    cookie:
+#      name: sso-client-session
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:8086/oauth/token
+      client-secret: sso-client-secret2
+      client-id: sso-client2
+      user-authorization-uri: http://localhost:8086/oauth/authorize
+    resource:
+      #校验token的url地址，如果配置了这个 需要在服务端的spring-security的路径中跳过这个url的校验
+      #如果使用了jwt，那么这里就不需要配置了，因为jwt的joken校验在客户端
+      #token-info-uri: http://localhost:8086/oauth/check_token
+
+      #这里使用了jwt的token，需要获取token的key
+      jwt:
+        key-uri: http://localhost:8086/oauth/token_key
+
+

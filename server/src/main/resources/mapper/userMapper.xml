@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyl.dao.UserMapper">
+    <resultMap id="sysUser" type="com.yyl.bean.SysUser">
+        <result column="id" property="id"/>
+        <result column="username" property="username" />
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <collection property="roles" ofType="com.yyl.bean.SysRole">
+            <result property="id" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+            <result property="roleCode" column="role_code"/>
+            <collection property="resources" ofType="com.yyl.bean.SysResource">
+                <result property="id" column="resource_id"/>
+                <result property="pid" column="resource_pid"/>
+                <result property="name" column="resource_name"/>
+                <result property="code" column="resource_code"/>
+                <result property="uri" column="resource_uri"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <!-- 使用自定义typeHandler,在获取结果集时处理参数 -->
+    <select id="findUserByUsername" resultMap="sysUser">
+        select a.id,a.username,a.password,a.phone,c.id role_id,role_name,role_code,
+         e.id resource_id,pid resource_pid,e.name resource_name ,e.code resource_code ,e.uri resource_uri
+         from sys_user a
+        left join sys_user_role b on a.id=b.user_id
+        left join sys_role c on b.role_id=c.id
+        left join sys_role_resource d on c.id = d.role_id
+        left join sys_resource e on d.resource_id=e.id
+         where username=#{username}
+    </select>
+    <select id="findAllUser" resultType="com.yyl.bean.SysUser">
+        select username,password from sys_user
+    </select>
+
+</mapper>
