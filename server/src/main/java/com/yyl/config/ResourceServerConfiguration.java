@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 /**
- * @Description: TODO
+ * @Description: oauth2资源服务器设置
  * @Author: yang.yonglian
  * @CreateDate: 2019/11/21 22:02
  * @Version: 1.0

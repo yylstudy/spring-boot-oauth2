@@ -1,4 +1,21 @@
 server:
   port: 8085
+mybatis:
+  mapper-locations: /mapper/**.xml
 
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/thirdlogin
+    driver-class-name: com.mysql.jdbc.Driver
 
+github:
+  #github上配置的clientId
+  appId: 08f507a1cfcf70f74eaa
+  #github上配置的 secret
+  appSecret: c4a945e7421df611c346b3899f41954e76f9f1e1
+  #github上配置的回调地址
+  callbackUrl: http://127.0.0.1:8085/redirectAndLoginForGithub
+  #请求github的授权码url
+  redrictUrl: https://github.com/login/oauth/authorize?client_id=08f507a1cfcf70f74eaa&scope=user,public_repo
