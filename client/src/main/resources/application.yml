@@ -12,9 +12,9 @@ spring:
 
 github:
   #github上配置的clientId
-  appId: 08f507a1cfcf70f74eaa
+  appId: 86a7c7bd33cbd00ba11f
   #github上配置的 secret
-  appSecret: c4a945e7421df611c346b3899f41954e76f9f1e1
+  appSecret: 16f0b99c23dc8f99b0fce93c49b1c4912e71dba4
   #github上配置的回调地址
   callbackUrl: http://127.0.0.1:8085/redirectAndLoginForGithub
   #请求github的授权码url

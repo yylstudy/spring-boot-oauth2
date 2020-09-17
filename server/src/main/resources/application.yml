@@ -8,7 +8,7 @@ druid:
   url: jdbc:mysql://127.0.0.1:3306/oauth2
   username: root
   password: root
-#这个很重要，配置了oauth2的过滤器的熟悉怒
+#这个很重要，配置了oauth2的过滤器的顺序，否则对受护资源请求不会被OAuth2的拦截器拦截。
 security:
   oauth2:
     resource:

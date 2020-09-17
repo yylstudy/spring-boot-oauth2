@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 都可以访问
                 .antMatchers("/static/**","/css/**", "/js/**", "/fonts/**", "/img/**",
                         "/oauth/check_token","/redirect","/getProtectedResoureFromOauth2Server",
+                        "/getUnAuthResoureFromOauth2Server",
                         "/redirectAndLogin","/redirectAndLoginForGithub").permitAll()
                 // 需要相应的角色才能访问
                 //.antMatchers("/admin/**").hasRole("ADMIN")

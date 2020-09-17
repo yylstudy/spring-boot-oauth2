@@ -29,7 +29,7 @@ public class JwtTokenUtil {
 
     public static void main(String[] args) throws Exception {
         //过期测试
-        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ5eWwiLCJzY29wZSI6WyJhbGwiXSwiZXhwIjoxNTc0NDE3NTc2LCJhdXRob3JpdGllcyI6WyJ1c2VyOnRlc3QiLCJ1c2VyOmFkZCJdLCJqdGkiOiJhZjAwM2VkNi0zMTBjLTQ5MTAtYjZkYy01MjI0MDFhMTU2ZDMiLCJ1c2VyaW5mbyI6eyJwYXNzd29yZCI6bnVsbCwidXNlcm5hbWUiOiJ5eWwiLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoidXNlcjphZGQifSx7ImF1dGhvcml0eSI6InVzZXI6dGVzdCJ9XSwiYWNjb3VudE5vbkV4cGlyZWQiOnRydWUsImFjY291bnROb25Mb2NrZWQiOnRydWUsImNyZWRlbnRpYWxzTm9uRXhwaXJlZCI6dHJ1ZSwiZW5hYmxlZCI6dHJ1ZSwiaWQiOiIxIiwicGhvbmUiOiIxNTI1NTE3ODU1MyJ9LCJjbGllbnRfaWQiOiJzc28tY2xpZW50MiJ9.gUk_4bnZuPW3kenSm5AYeKsTSoHHQ5-vtvIkcW6ZZ1g";
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJ5eWwiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXSwiY3VzdG9tIjoidGVzdCIsImV4cCI6MTYwMDMxNDM1NCwiYXV0aG9yaXRpZXMiOlsidXNlcjp0ZXN0IiwidXNlcjphZGQiXSwianRpIjoiNjI5OTMxMmUtMWFlNS00YzM0LWI5NmYtMmI3OTZhMTNmMjU2IiwiY2xpZW50X2lkIjoiY2xpZW50MSJ9.6vjFCSepUdz5EYZQBUeqOGjOJjDQNrNyvOXjIe8-tUA";
         Map<String, Claim> verifyToken2 = JwtTokenUtil.verifyToken(token);
         Map myUser = verifyToken2.get("userinfo").asMap();
         System.out.println(myUser);

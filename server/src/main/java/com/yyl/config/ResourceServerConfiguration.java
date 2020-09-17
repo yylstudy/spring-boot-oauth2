@@ -34,5 +34,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .and().authorizeRequests().antMatchers("/authmenu/**")
                 //设置 authmenu的请求必须带有oauth2的scope信息
                 .access("#oauth2.hasScope('read,write')");
+
+
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/logout").permitAll()
+//                .antMatchers("/authmenu/scope/user/**").access("#oauth2.hasScope('user')")
+//                .antMatchers("/authmenu/scope/config/**").access("#oauth2.hasScope('config')");
     }
 }

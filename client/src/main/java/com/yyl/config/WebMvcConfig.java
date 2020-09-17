@@ -18,6 +18,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/github_success").setViewName("github_success");
+        registry.addViewController("/home").setViewName("home");
         registry.addViewController("/oauth2_server_success").setViewName("oauth2_server_success");
         registry.addViewController("/oauth/my_approval_page").setViewName("oauth_approval");
     }

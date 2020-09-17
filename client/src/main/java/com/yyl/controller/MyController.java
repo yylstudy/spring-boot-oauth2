@@ -15,7 +15,6 @@ import com.yyl.bean.MyUser;
 import com.yyl.bean.SysUser;
 import com.yyl.dao.UserMapper2;
 import com.yyl.util.JwtTokenUtil;
-import com.yyl.util.PasswordUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,21 +30,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Description: 第三方登录和token获取
@@ -68,8 +59,6 @@ public class MyController {
     private String appSecret;
     @Value("${github.callbackUrl}")
     private String callbackUrl;
-    @Value("${github.redrictUrl}")
-    private String redrictUrl;
     private static final String PROTECTED_RESOURCE_URL = "https://api.github.com/user";
     /**
      * 请求授权码时的回调地址，这里获取oauth2请求时的授权码，去获取token
@@ -102,7 +91,7 @@ public class MyController {
      */
     @RequestMapping("/redirectAndLogin")
     public String redirectAndLogin(String code) throws Exception{
-        log.info("get authCode from oauth2 server :{} ",code);
+        log.info("get authCode from oauth2 server22 :{} ",code);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
@@ -179,6 +168,26 @@ public class MyController {
         params.add("access_token",token);
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
         ResponseEntity<String> result = restTemplate.postForEntity("http://127.0.0.1:8086/authmenu/getUsers",requestEntity,String.class);
+        log.info("get token:{}",result.getBody());
+        return "success";
+    }
+    /**
+     * 访问不是oauth2保护资源，可以看到即使带上正确的token也无法正常调用
+     * @param token
+     * @return
+     */
+    @RequestMapping("/getUnAuthResoureFromOauth2Server")
+    @ResponseBody
+    public String getUnAuthResoureFromOauth2Server(String token){
+        HttpHeaders headers = new HttpHeaders();
+        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+        params.add("access_token",token);
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+        ResponseEntity<String> result = restTemplate.postForEntity("http://127.0.0.1:8086/noauthmenu/getUsers",requestEntity,String.class);
+        //可以看到这里http返回状态码302，表示该请求已经重定向了
+        log.info("http status:{}",result.getStatusCode().value());
+        //重定向地址为 http://127.0.0.1:8086/login 说明这个资源不是oauth2资源服务器管理的，所以要走server的认证登录
+        log.info("redirect url:{}",result.getHeaders().getLocation());
         log.info("get token:{}",result.getBody());
         return "success";
     }
